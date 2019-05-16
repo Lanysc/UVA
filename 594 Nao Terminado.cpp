@@ -2,24 +2,35 @@
 
 using namespace std;
 
+int T;
 map <int,int> mp, pos;
 list <int>  stl;
+list <int>::iterator it;
+
 void Enq(int i)
 {
-    if(pos[mp[i]] == 1)
+    if(pos[mp[i]] <= 1)
     {
         stl.push_back(i);
-        pos[mp[i]] += 1;
+        pos[mp[i]] += stl.size();
     }
     else //adiciona no pos[mp[i]] o numero
     {
-
+        it = stl.begin();
+        advance(it,pos[mp[i]]);
+        stl.insert(it,i);
+        pos[mp[i]] += pos[mp[i]];
     }
 }
 
 void Deq()
 {
-
+    printf("%d\n",stl.front());
+    stl.pop_front();
+    for (int i = 0;i < T;i++)
+    {
+        pos[i]= pos[i]-1;
+    }
 }
 
 void Stop()
@@ -31,7 +42,6 @@ void Stop()
 
 int main()
 {
-    int T;
     scanf("%d",&T);
     for (int i = 0;i < T;i++)
     {
