@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-
+// o NUMERO NAO ESTA SENDO ALOCADO CORRETAMENTE 
 using namespace std;
 
 int T, front = 0,x = -1;
@@ -10,32 +10,34 @@ void Enq(int num)
 {
     if(pos[mp[num]] <= 0)
     {
+    	//puts("entrei 1");
         stl.push_back(num);
         pos[mp[num]] = stl.size();
     }
     else //adiciona no pos[mp[num]] o numero
     {
-    	for (int i = stl.size()-1;i > pos[mp[num]]-1;i--)
+    	puts("entrei 2");
+    	for (int i = stl.size()-1;i > pos[mp[num]];i--)
 		{
 			stl[i+1] = stl[i];
-			
 			if (pos[mp[i]] != x)
 			{
 				pos[mp[i]] += 1;
 				x = pos[mp[i]];
 			}
-		}    
+		}
 		stl[pos[mp[num]]] = num;
-		pos[mp[num]] += 1;
+		pos[mp[num]] = pos[mp[num]] + 1;
 	}
 }
 
 void Deq()
 {
-    printf("%d\n",stl[0]);
+    printf("%d %d %d\n",stl[0],stl[1],stl[2]);
     for(int i = 0; i < T; i++)
 	{
-		pos[i] -= 1;
+		if (pos[i] > 0)
+			pos[i] -= 1;
 	}
 	stl.erase(stl.begin());
 }
@@ -77,7 +79,4 @@ int main()
 	    else
 	        Stop();
 	}
-
-
-
 }
