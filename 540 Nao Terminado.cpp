@@ -1,82 +1,85 @@
 #include <bits/stdc++.h>
 // o NUMERO NAO ESTA SENDO ALOCADO CORRETAMENTE 
 using namespace std;
-
-int T, front = 0,x = -1;
-map <int,int> mp, pos;
-vector <int>  stl;
-
-void Enq(int num)
+ 
+pair<int,int> fila[200001];
+int size = 0;
+map<int,int> mp;
+ 
+void Enq(pair<int,int>num)
 {
-    if(pos[mp[num]] <= 0)
+    if(size == 0)
     {
-    	//puts("entrei 1");
-        stl.push_back(num);
-        pos[mp[num]] = stl.size();
+	    fila[0] = num;
+    }	
+    else
+    {
+        bool e = false, ok = false;
+        for(int i = size -1;!ok && i >= 0;i++)
+        {
+            fila[i+1] = fila[i];
+            if(e)
+            {
+                if(num.second != fila[i+1].second)
+                {
+                    fila[i+1] = num;
+                    ok = true;
+                }
+            }
+            else
+            {
+                if(fila[i].second == num.second)
+                {
+                    e = true;
+                }
+            }
+        }
     }
-    else //adiciona no pos[mp[num]] o numero
-    {
-    	puts("entrei 2");
-    	for (int i = stl.size()-1;i > pos[mp[num]];i--)
-		{
-			stl[i+1] = stl[i];
-			if (pos[mp[i]] != x)
-			{
-				pos[mp[i]] += 1;
-				x = pos[mp[i]];
-			}
-		}
-		stl[pos[mp[num]]] = num;
-		pos[mp[num]] = pos[mp[num]] + 1;
-	}
+    size++;
+ 
 }
-
+ 
 void Deq()
 {
-    printf("%d %d %d\n",stl[0],stl[1],stl[2]);
-    for(int i = 0; i < T; i++)
-	{
-		if (pos[i] > 0)
-			pos[i] -= 1;
-	}
-	stl.erase(stl.begin());
+    printf("%d\n",size-1);
+    size--;
 }
-
+ 
 void Stop()
 {
-    mp.clear();
-    pos.clear();
-    stl.clear();
+    size = 0;
 }
-
+ 
 int main()
 {
-    scanf("%d",&T);
-    for (int i = 0;i < T;i++)
+    int T;
+    while(scanf("%d",&T) && T != 0)
     {
-        int Num;
-        scanf("%d",&Num);
-        while(Num--)
+        for (int i = 0;i < T;i++)
         {
-            int y;
-            scanf("%d",&y);
-            mp[y] = i;
-        }
-        pos[i] = 0;
-    }
-    string Comando;
-    while(Comando != "STOP")
-	{
-		cin >> Comando;
-	    if(Comando == "ENQUEUE")
+	    int Num;
+	    scanf("%d",&Num);
+	    while(Num--)
 	    {
-	        int x;
-	        scanf("%d",&x);
-	        Enq(x);
+	        int y;
+	        scanf("%d",&y);
+	        mp[y] = i;
 	    }
-	    else if(Comando == "DEQUEUE")
-	        Deq();
-	    else
-	        Stop();
-	}
+        }
+        string Comando;
+        while(Comando != "STOP")
+	    {
+		    cin >> Comando;
+	        if(Comando == "ENQUEUE")
+	        {
+		    int x;
+		    scanf("%d",&x);
+		    Enq(make_pair(x,mp[x]));
+	        }
+	        else if(Comando == "DEQUEUE")
+	   	    Deq();
+	        else
+		    Stop();
+	    }
+    }	
 }
