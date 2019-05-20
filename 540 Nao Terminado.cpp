@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 // o NUMERO NAO ESTA SENDO ALOCADO CORRETAMENTE 
+// VERIFAR SE ESTA SENDO ALOCADO EM VALOR NEGATIVO
 using namespace std;
  
 pair<int,int> fila[600000], numero;
@@ -10,15 +11,16 @@ void Enq(pair<int,int>num)
 {
     if(size == 0)
     {
-        puts("entrei");
 	    fila[0] = num;
+		size++;
     }	
     else
     {
         bool e = false, ok = false;
         for(int i = size-1;!ok && i >= 0;i--)
         {
-            fila[i+1] = fila[i];
+            fila[i+1] = fila[i]; //TA DANDO MERDA AQUI
+            cout << fila[i+1].first << "%%%" << endl;
             if(e)
             {
                 if(i == 0 || num.second != fila[i+1].second)
@@ -36,14 +38,19 @@ void Enq(pair<int,int>num)
             }
             
         }
+		size++;
     }
-    size++;
- 
+    
+	//cout << size << endl;
 }
  
 void Deq()
 {
-    cout << fila[size-1].second << endl;
+    cout << fila[size-1].first << endl;
+    //~ cout << fila[size-2].first << endl;
+    //~ cout << fila[size-3].first << endl;
+    //~ cout << fila[0].first << endl;
+    //cout << size << endl;
     size--;
 }
  
@@ -57,6 +64,7 @@ int main()
     int T;
     while(scanf("%d",&T) && T != 0)
     {
+		size = 0;
 	    for (int i = 0;i < T;i++)
 	    {
 	        int Num;
