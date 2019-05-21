@@ -25,6 +25,15 @@ struct Whells
     }
 };
 
+bool verificar (Whells a)
+{
+    int i;
+    for (i = 0;Whells a != Whells b && i < (int)Proibidos.size(); i++);
+    if (i < (int)Proibidos.size())
+        return false
+    return true
+}
+
 void bfs(int a, int b, int c, int d)
 {
 
