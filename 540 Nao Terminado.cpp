@@ -4,7 +4,8 @@
 using namespace std;
  
 pair<int,int> fila[600000], numero;
-int size = 0;
+int size = 0, caso = 1;
+bool mostra  = true;
 map<int,int> mp;
  
 void Enq(pair<int,int>num)
@@ -17,17 +18,22 @@ void Enq(pair<int,int>num)
     else
     {
         bool e = false, ok = false;
-        for(int i = size-1;!ok && i >= 0;i--)
+        for(int i = size -1;!ok && i >= 0;i--)
         {
             fila[i+1] = fila[i]; //TA DANDO MERDA AQUI
-            cout << fila[i+1].first << "%%%" << endl;
+            //cout << fila[i].first << " " << fila[i+1].first << "%%%" << endl;
             if(e)
             {
-                if(i == 0 || num.second != fila[i+1].second)
+                if(num.second != fila[i+1].second)
                 {
                     fila[i+1] = num;
                     ok = true;
                 }
+                else if (i == 0)
+				{
+					fila[i] = num;
+                    ok = true;
+				}
             }
             else
             {
@@ -35,6 +41,8 @@ void Enq(pair<int,int>num)
                 {
                     e = true;
                 }
+                if (i == 0)
+            		fila[0] = num;
             }
             
         }
@@ -46,6 +54,9 @@ void Enq(pair<int,int>num)
  
 void Deq()
 {
+	if(mostra)
+		printf("Scenario #%d\n",caso);
+	mostra = false;
     cout << fila[size-1].first << endl;
     //~ cout << fila[size-2].first << endl;
     //~ cout << fila[size-3].first << endl;
@@ -57,6 +68,9 @@ void Deq()
 void Stop()
 {
     size = 0;
+    caso++;
+    mostra = true;
+    cout << endl;
 }
  
 int main()
