@@ -42,14 +42,25 @@ void bfs(int a, int b, int c, int d)
 int main()
 {
     queue<Whells> Qu;
-    int test, a, b, c, d;
+    int test, Var1[4], Var2[4];
     scanf("%d",&test);
     while(test--)
     {
-        scanf("%d %d %d %d", &a, &b, &c, &d);
+        int Pb;
+        bool ok;
+        scanf("%d %d %d %d", &Var1[0], &Var1[1], &Var1[2], &Var1[3]);
         Qu.push(Whells(a, b, c, d));
-        scanf("%d %d %d %d", &a, &b, &c, &d);
-
+        scanf("%d %d %d %d", &Var1[0], &Var1[1], &Var1[2], &Var1[3]);
+        scanf("%d",&Pb);
+        while(Pb--)
+        {
+			scanf("%d %d %d %d", &Var2[0], &Var2[1], &Var2[2], &Var2[3]);
+			Proibido.push_back(Whells(Var2[0], Var2[1], Var2[2], Var2[3]));
+        }
+        while(!ok && !Qu.empty())
+        {
+			
+		}
     }
 
 }
