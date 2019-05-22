@@ -40,8 +40,9 @@ int A_[8] = {1,-1,0,0,0,0,0,0},
 
 bool verificar (Whells a)
 {
-    int i;
-    for (i = 0;a != Proibido[i] && i < (int)Proibido.size(); i++);
+    int i, size;
+    size = (int)Proibido.size();
+    for (i = 0;a != Proibido[i] && i < size; i++);
     if (i < (int)Proibido.size())
         return false;
     return true;
@@ -51,18 +52,16 @@ void bfs(int a, int b, int c, int d)
 {
     for (int i = 0; i < 8; i++)
     {
-        if (a + A_[i] > 9 || a + A_[i] < 0)
-            a = abs(a) + A_[i] % 10;
-        if (b + B_[i] > 9 || b + B_[i] < 0)
-            b = abs(b) + B_[i] % 10;
-        if (c + C_[i] > 9 || c + C_[i] < 0)
-            c = abs(c) + C_[i] % 10;
-        if (d + D_[i] > 9 || d + D_[i] < 0)
-            d = abs(d) + D_[i] % 10;
-        if (verificar(Whells(a + A_[i],b + B_[i], c + C_[i], d + D_[i])))
+        a = (abs(a) + A_[i]) % 10;
+        b = (abs(b) + B_[i]) % 10;
+        c = (abs(c) + C_[i]) % 10;
+        d = (abs(d) + D_[i]) % 10;
+        printf("%d %d %d %d\n",a,b,c,d);
+        if (verificar(Whells(a,b,c,d)))
         {
-            Qu.push(Whells(a + A_[i],b + B_[i], c + C_[i], d + D_[i]));
-            Proibido.push_back(Whells(a + A_[i],b + B_[i], c + C_[i], d + D_[i]));
+            puts ("entrei");
+            Qu.push(Whells(a,b,c,d));
+            Proibido.push_back(Whells(a,b,c,d));
             nodeT++;
         }
     }
@@ -70,7 +69,7 @@ void bfs(int a, int b, int c, int d)
 
 int main()
 {
-    int test, Var1[4], Var2[4];
+    int test, Var1[4], Var2[4], VarR[4];
     scanf("%d",&test);
     while(test--)
     {
@@ -81,7 +80,7 @@ int main()
         bool ok = false;
         scanf("%d %d %d %d", &Var1[0], &Var1[1], &Var1[2], &Var1[3]);
         Qu.push(Whells(Var1[0], Var1[1], Var1[2], Var1[3]));
-        scanf("%d %d %d %d", &Var1[0], &Var1[1], &Var1[2], &Var1[3]);
+        scanf("%d %d %d %d", &VarR[0], &VarR[1], &VarR[2], &VarR[3]);
         scanf("%d",&Pb);
         while(Pb--)
         {
@@ -94,8 +93,9 @@ int main()
             int b = Qu.front().v2;
             int c = Qu.front().v3;
             int d = Qu.front().v4;
+            printf("%d %d %d %d\n",a,b,c,d);
             Qu.pop();
-            if (a == Var1[0] && b == Var1[1] && c == Var1[2] && d == Var1[3])
+            if (a == VarR[0] && b == VarR[1] && c == VarR[2] && d == VarR[3])
                 ok = true;
             if (!ok)
             {
