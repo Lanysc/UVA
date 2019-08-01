@@ -53,6 +53,7 @@ int main()
     ll a;
     while(scanf("%lld",&a) && a != 0)
     {
+	    	a = abs(a);
 		if (a > 1)
 		{
 			pair<ll,ll> r = PrimeFactors(a);
